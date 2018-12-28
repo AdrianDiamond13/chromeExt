@@ -26,21 +26,30 @@ var tabs2 = chrome.tabs.query({'active': false }, function (tabs2) {
   }
 });
 
-// let addAllButton = document.createElement('button');
-// let divEl = document.getElementById('mainDiv')
+let addAllButton = document.createElement('button');
+let divEl = document.getElementById('mainDiv')
 // console.log("divEl", divEl)
-// divEl.appendChild(addAllButton)
+divEl.appendChild(addAllButton)
 
-// addAllButton.className = 'addAll';
-// addAllButton.innerHTML = "Add All";
+addAllButton.className = 'addAll';
+addAllButton.innerHTML = "Add All";
 // console.log(addAllButton);
 
-// addAllButton.addEventListener('click', function(event){
-//   console.log("please do something");
-//   for(let k = 0; k < bookMarkTabs.length; k++){
-//     chrome.bookmarks.create({'title': bookMarkTabs[k].title, 'url': bookMarkTabs[k].url})
-//   }
-// }, false);
+addAllButton.addEventListener('click', function(event){
+  // console.log("please do something");
+  for(let k = 0; k < bookMarkTabs.length; k++){
+    chrome.bookmarks.create({'title': bookMarkTabs[k].title, 'url': bookMarkTabs[k].url})
+  }
+  let select = document.querySelector('#tabsList')
+  // console.log(select)
+  let selectedButtons = select.querySelectorAll('.addButtonClass')
+  // console.log(selectedButtons.length)
+  selectedButtons.forEach(function(userItem) {
+    console.log(userItem)
+    userItem.style.visibility = 'hidden';
+  })
+
+}, false);
 
 
 //console.log(bookMarkTabs);
@@ -88,6 +97,7 @@ var allTheTabs = chrome.tabs.query({'active': false }, function (tabs) {
    
     if(!bookMarklist.includes(tabs[i].url)){
       let addButton = document.createElement('button');
+      addButton.className = "addButtonClass"
     addButton.addEventListener('click', function(event){
       chrome.bookmarks.create({'title': tabs[i].title, 'url': tabs[i].url});
       event.target.style.visibility = 'hidden';
